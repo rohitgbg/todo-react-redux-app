@@ -20,13 +20,9 @@ const App = ({ todos, insertTodo }) => (
         <input className="addBtn" type="submit" value="Add" />
       </form>
     </div>
-    <TodoList todos={todos} />
+    <TodoList />
   </>
 );
-
-const mapStateToProps = state => ({
-  todos: state.todos.todosArr
-});
 
 const mapDispatchToProps = dispatch => ({
   insertTodo: e =>
@@ -37,4 +33,4 @@ const mapDispatchToProps = dispatch => ({
     )
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

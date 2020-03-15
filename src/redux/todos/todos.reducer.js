@@ -1,4 +1,5 @@
 import { TodosActionTypes } from "./todos.types";
+import { updateCompletedSatus, removeTodosHandle } from "./todos.util";
 
 const INITIAL_STATE = {
   todosArr: [
@@ -20,6 +21,20 @@ const todosReducer = (state = INITIAL_STATE, action) => {
           ...state.todosArr,
           { title: action.payload.title, date: new Date(), isCompleted: false }
         ]
+      };
+
+    case TodosActionTypes.COMPLETE_TODO:
+      return {
+        ...state,
+        todosArr: [
+          ...updateCompletedSatus(state.todosArr, action.payload.index)
+        ]
+      };
+
+    case TodosActionTypes.REMOVE_TODO:
+      return {
+        ...state,
+        todosArr: removeTodosHandle(state.todosArr, action.payload.index)
       };
 
     default:

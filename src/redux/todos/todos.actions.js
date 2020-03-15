@@ -6,6 +6,11 @@ export const insertTodo = todo => ({
 });
 
 export const completeTodo = todo => ({
-  type: "INSERT_TODO",
+  type: TodosActionTypes.COMPLETE_TODO,
+  payload: todo
+});
+
+export const removeTodo = todo => ({
+  type: TodosActionTypes.REMOVE_TODO,
   payload: todo
 });
