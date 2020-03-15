@@ -2,20 +2,24 @@ import React from "react";
 import "./App.scss";
 import TodoList from "./Components/TodoList/TodoList";
 import { connect } from "react-redux";
+import { insertTodo } from "./redux/todos/todos.actions";
 
 const App = props => {
-  const { todos, title } = props;
+  const { todos, insertTodo } = props;
   return (
     <>
       <div className="app__header">
         <h2>My To Do List</h2>
-        <input
-          type="text"
-          placeholder="Title..."
-          value={title}
-          // onChange={event => this.setState({ title: event.target.value })}
-        />
-        <span className="addBtn">Add</span>
+
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            insertTodo(e);
+          }}
+        >
+          <input type="text" placeholder="Title..." />
+          <input className="addBtn" type="submit" value="Add" />
+        </form>
       </div>
       <TodoList todos={todos} />
     </>
@@ -23,8 +27,16 @@ const App = props => {
 };
 
 const mapStateToProps = state => ({
-  todos: state.todos.todosArr,
-  title: state.todos.title
+  todos: state.todos.todosArr
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  insertTodo: e =>
+    dispatch(
+      insertTodo({
+        title: e.target.querySelector("input").value
+      })
+    )
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

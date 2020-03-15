@@ -13,12 +13,12 @@ const TodoList = props => {
             className={`todo__list-item ${
               todo.isCompleted ? "todo__list-item--checked" : ""
             }`}
-            onClick={() => completedHandle(index)}
+            // onClick={() => completedHandle(index)}
           >
             {todo.title}{" "}
             <span
               className="todo__list-item--close"
-              onClick={event => removeHandle(event, index)}
+              // onClick={event => removeHandle(event, index)}
             >
               &times;
             </span>

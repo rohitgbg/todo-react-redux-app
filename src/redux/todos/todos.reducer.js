@@ -6,16 +6,20 @@ const INITIAL_STATE = {
     { title: "Buy groceries", date: new Date(), isCompleted: false },
     { title: "Read a book", date: new Date(), isCompleted: false },
     { title: "organize office", date: new Date(), isCompleted: false }
-  ],
-  title: ""
+  ]
 };
 
 const todosReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "INSERT_TODO":
+      console.log("INSERT_TODO action", action);
+
       return {
         ...state,
-        ...action.payload
+        todosArr: [
+          ...state.todosArr,
+          { title: action.payload.title, date: new Date(), isCompleted: false }
+        ]
       };
 
     default:
