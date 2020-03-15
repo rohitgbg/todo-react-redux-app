@@ -1,3 +1,5 @@
+import { TodosActionTypes } from "./todos.types";
+
 const INITIAL_STATE = {
   todosArr: [
     { title: "Go to gym", date: new Date(), isCompleted: false },
@@ -11,9 +13,7 @@ const INITIAL_STATE = {
 
 const todosReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "INSERT_TODO":
-      console.log("INSERT_TODO action", action);
-
+    case TodosActionTypes.INSERT_TODO:
       return {
         ...state,
         todosArr: [
