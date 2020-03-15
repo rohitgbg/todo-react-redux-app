@@ -15,6 +15,13 @@ const INITIAL_STATE = {
 const todosReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TodosActionTypes.INSERT_TODO:
+      if (!action.payload.title) {
+        alert("Please Enter the todo title");
+        return {
+          ...state
+        };
+      }
+
       return {
         ...state,
         todosArr: [
