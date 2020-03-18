@@ -9,12 +9,20 @@ const INITIAL_STATE = {
     { title: "Buy groceries", date: new Date(), isCompleted: false },
     { title: "Read a book", date: new Date(), isCompleted: false },
     { title: "organize office", date: new Date(), isCompleted: false }
-  ]
+  ],
+  isInserting: true,
+  errorMessage: undefined
 };
 
 const todosReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case TodosActionTypes.INSERT_TODO:
+    case TodosActionTypes.INSERT_TODO_START:
+      return {
+        ...state,
+        isInserting: true
+      };
+
+    case TodosActionTypes.INSERT_TODO_SUCCESS:
       if (!action.payload.title) {
         alert("Please Enter the todo title");
         return {
@@ -24,10 +32,18 @@ const todosReducer = (state = INITIAL_STATE, action) => {
 
       return {
         ...state,
+        isInserting: false,
         todosArr: [
           ...state.todosArr,
           { title: action.payload.title, date: new Date(), isCompleted: false }
         ]
+      };
+
+    case TodosActionTypes.INSERT_TODO_FAILURE:
+      return {
+        ...state,
+        isInserting: false,
+        errorMessage: action.payload
       };
 
     case TodosActionTypes.COMPLETE_TODO:

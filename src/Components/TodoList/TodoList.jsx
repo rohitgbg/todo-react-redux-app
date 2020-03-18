@@ -2,31 +2,22 @@ import React from "react";
 import "./TodoList.scss";
 import { connect } from "react-redux";
 import { completeTodo, removeTodo } from "../../redux/todos/todos.actions";
+import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, completeTodo, removeTodo }) => {
+const TodoList = ({ todos, completeTodo, removeTodo, isInserting }) => {
   return (
     <ul className="todo__list">
       {todos &&
         todos.map((todo, index) => {
           return (
-            <li
+            <TodoItem
               key={index}
-              className={`todo__list-item ${
-                todo.isCompleted ? "todo__list-item--checked" : ""
-              }`}
-              onClick={() => completeTodo(index)}
-            >
-              {todo.title}{" "}
-              <span
-                className="todo__list-item--close"
-                onClick={event => {
-                  event.stopPropagation();
-                  removeTodo(index);
-                }}
-              >
-                &times;
-              </span>
-            </li>
+              title={todo.title}
+              isCompleted={todo.isCompleted}
+              completeTodo={completeTodo}
+              index={index}
+              removeTodo={removeTodo}
+            />
           );
         })}
     </ul>
@@ -39,7 +30,8 @@ const mapDispatchToprops = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  todos: state.todos.todosArr
+  todos: state.todos.todosArr,
+  isInserting: state.todos.isInserting
 });
 
 export default connect(mapStateToProps, mapDispatchToprops)(TodoList);
